@@ -7,17 +7,20 @@ describe('Controller: DashboardCtrl', function () {
 
   var DashboardCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      response;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
+    response = [
+      {name : 'fulano'},
+      {name : 'sutano'},
+      {name : 'mengano'}
+    ];
+
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/api/users')
-      .respond([
-        {name : 'fulano'},
-        {name : 'sutano'},
-        {name : 'mengano'}
-      ]);
+      .respond(response);
 
     scope = $rootScope.$new();
     DashboardCtrl = $controller('DashboardCtrl', {
@@ -36,8 +39,9 @@ describe('Controller: DashboardCtrl', function () {
     expect(scope.users.length).toBe(3);
   });
 
-  it("returns the selected user", function () {
+  it("selects the first user by default", function () {
     expect(scope.getSelectedUser).toBeDefined();
     expect(scope.getSelectedUser()).toBeDefined();
+    expect(scope.getSelectedUser().name).toBe(response[0].name);
   });
 });
