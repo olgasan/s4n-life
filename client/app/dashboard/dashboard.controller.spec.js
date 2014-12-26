@@ -39,9 +39,9 @@ describe('Controller: DashboardCtrl', function () {
     expect(scope.users.length).toBe(3);
   });
 
-  it("selects the first user by default", function () {
-    expect(scope.getSelectedUser).toBeDefined();
-    expect(scope.getSelectedUser()).toBeDefined();
-    expect(scope.getSelectedUser().name).toBe(response[0].name);
+  it("null user is selected by default", function () {
+    expect(scope.selectedUser).not.toBeDefined();
+    scope.selectedUser = response[0];
+    expect(scope.selectedUser.name).toBe(response[0].name);
   });
 });
