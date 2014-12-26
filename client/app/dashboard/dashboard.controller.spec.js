@@ -23,6 +23,8 @@ describe('Controller: DashboardCtrl', function () {
     DashboardCtrl = $controller('DashboardCtrl', {
       $scope: scope
     });
+
+    $httpBackend.flush();
   }));
 
   it('scope should have users', function () {
@@ -31,7 +33,11 @@ describe('Controller: DashboardCtrl', function () {
   });
 
   it('should attach a list of users to the scope', function () {
-    $httpBackend.flush();
     expect(scope.users.length).toBe(3);
+  });
+
+  it("returns the selected user", function () {
+    expect(scope.getSelectedUser).toBeDefined();
+    expect(scope.getSelectedUser()).toBeDefined();
   });
 });
