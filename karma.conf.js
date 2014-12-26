@@ -21,7 +21,6 @@ module.exports = function(config) {
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/app/app.js',
-      'client/app/app.coffee',
       'client/app/**/*.js',
       'client/app/**/*.coffee',
       'client/components/**/*.js',
@@ -32,10 +31,19 @@ module.exports = function(config) {
       'client/components/**/*.html'
     ],
 
+    // coverage reporter generates the coverage
+    reporters: ['progress', 'coverage'],
+
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
       '**/*.coffee': 'coffee',
+      'client/app/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
     },
 
     ngHtml2JsPreprocessor: {
