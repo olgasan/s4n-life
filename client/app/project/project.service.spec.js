@@ -39,4 +39,19 @@ describe('Service: project', function () {
     expect(userProject.length).toBe(1);
   });
 
+  it("should make request only once", function () {
+    var userProject = undefined;
+    project.getByUser('merengano').then(function (pData) {
+      userProject = pData;
+    });
+    $httpBackend.flush();
+
+    response.push ({ name: 'p8', developers: ['merengano']});
+    project.getByUser('merengano').then(function (pData) {
+      userProject = pData;
+    });
+
+    expect(userProject.length).toBe(1);
+  });
+
 });
