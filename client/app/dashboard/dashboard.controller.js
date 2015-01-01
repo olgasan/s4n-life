@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('s4nLifeApp')
-  .controller('DashboardCtrl', function ($scope, $http) {
+  .controller('DashboardCtrl', function ($scope, user) {
     $scope.users = [];
 
-    $http.get('/api/users').success(function(users) {
+    user.getAll().then(function(users){
       $scope.users = users;
     });
   });
