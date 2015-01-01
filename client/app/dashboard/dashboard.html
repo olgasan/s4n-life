@@ -1,7 +1,7 @@
 <div class="col-md-5">
   <div class="col-md-8">
     <h3>Usuarios</h3>
-    <select ng-model="selectedUser" ng-options="user.name for user in users">
+    <select ng-model="selectedUser" ng-change="update()" ng-options="user.name for user in users">
       <option value="">-- choose user --</option>
     </select>
   </div>
