@@ -22,4 +22,27 @@ angular.module('s4nLifeApp')
       })
     };
 
+    $scope.chart = {};
+    $scope.chart.config = {
+      responsive: true,
+      scaleShowLine: true,
+      angleShowLineOut: true,
+      scaleShowLabels: false,
+      scaleBeginAtZero: false,
+      angleLineColor: 'rgba(0,0,0,.1)',
+      angleLineWidth: 1,
+      pointLabelFontFamily: '"Arial"',
+      pointLabelFontStyle: 'normal',
+      pointLabelFontSize: 10,
+      pointLabelFontColor: '#666',
+      pointDot: true,
+      pointDotRadius: 3,
+      pointDotStrokeWidth: 1,
+      pointHitDetectionRadius:20,
+      datasetStroke: true,
+      datasetStrokeWidth: 2,
+      datasetFill: true,
+      legendTemplate: '<ul class="tc-chart-js-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+    };
+
   });

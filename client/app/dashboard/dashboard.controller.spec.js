@@ -104,4 +104,28 @@ describe('Controller: DashboardCtrl', function () {
     scope.$digest();
     expect(scope.selectedProject.stats).toBeDefined();
   });
+
+  it("initialize options for chart", function () {
+    var config = scope.chart.config;
+    expect(config).toBeDefined ();
+    expect(config.responsive).toBeDefined ();
+    expect(config.scaleShowLine).toBeDefined ();
+    expect(config.angleShowLineOut).toBeDefined ();
+    expect(config.scaleShowLabels).toBeDefined ();
+    expect(config.scaleBeginAtZero).toBeDefined ();
+    expect(config.angleLineColor).toBeDefined ();
+    expect(config.angleLineWidth).toBeDefined ();
+    expect(config.pointLabelFontFamily).toBeDefined ();
+    expect(config.pointLabelFontStyle).toBeDefined ();
+    expect(config.pointLabelFontSize).toBeDefined ();
+    expect(config.pointLabelFontColor).toBeDefined ();
+    expect(config.pointDot).toBeDefined ();
+    expect(config.pointDotRadius).toBeDefined ();
+    expect(config.pointDotStrokeWidth).toBeDefined ();
+    expect(config.pointHitDetectionRadius).toBeDefined ();
+    expect(config.datasetStroke).toBeDefined ();
+    expect(config.datasetStrokeWidth).toBeDefined ();
+    expect(config.datasetFill).toBeDefined ();
+    expect(config.legendTemplate).toBeDefined ();
+  });
 });
