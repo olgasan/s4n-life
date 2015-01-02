@@ -63,6 +63,10 @@ describe('Controller: DashboardCtrl', function () {
       defer.resolve(this.data);
       return defer.promise;
     };
+    mockStats.chart = {
+      getLabels: function (){},
+      getValues: function (){}
+    };
 
     scope = $rootScope.$new();
     user = _user_;
@@ -127,5 +131,12 @@ describe('Controller: DashboardCtrl', function () {
     expect(config.datasetStrokeWidth).toBeDefined ();
     expect(config.datasetFill).toBeDefined ();
     expect(config.legendTemplate).toBeDefined ();
+  });
+
+  it("sets chart data when project is selected", function () {
+    expect(scope.selectedProject).toBeDefined();
+    scope.updateStats();
+    scope.$digest();
+    expect(scope.chart.data).toBeDefined();
   });
 });

@@ -5,6 +5,7 @@ angular.module('s4nLifeApp')
     $scope.users = [];
     $scope.selectedUser = {};
     $scope.selectedProject = {};
+    $scope.chart = {};
 
     $scope.updateUser = function () {
       project.getByUser($scope.selectedUser.name).then(function (data) {
@@ -19,10 +20,13 @@ angular.module('s4nLifeApp')
     $scope.updateStats = function () {
       stats.getByProject($scope.selectedProject.name).then(function (data) {
         $scope.selectedProject.stats = data;
-      })
+        $scope.chart.data = {
+          labels: stats.chart.getLabels(data),
+          datasets: stats.chart.getValues(data)
+        }
+      });
     };
 
-    $scope.chart = {};
     $scope.chart.config = {
       responsive: true,
       scaleShowLine: true,
