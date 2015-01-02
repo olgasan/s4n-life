@@ -64,8 +64,8 @@ describe('Controller: DashboardCtrl', function () {
       return defer.promise;
     };
     mockStats.chart = {
-      getLabels: function (){},
-      getValues: function (){}
+      getLabels: function (){ return []},
+      getValues: function (){ return []}
     };
 
     scope = $rootScope.$new();
@@ -134,9 +134,13 @@ describe('Controller: DashboardCtrl', function () {
   });
 
   it("sets chart data when project is selected", function () {
-    expect(scope.selectedProject).toBeDefined();
+    scope.selectedProject = mockProject.data[0];
     scope.updateStats();
     scope.$digest();
     expect(scope.chart.data).toBeDefined();
+    expect(scope.chart.data.labels).toBeDefined();
+    expect(scope.chart.data.datasets).toBeDefined();
   });
+
+
 });

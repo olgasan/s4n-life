@@ -1,11 +1,11 @@
-<div class="col-md-5">
-  <div class="col-md-8">
+<div class="col-md-12">
+  <div class="col-md-3">
     <h3>Usuarios</h3>
     <select ng-model="selectedUser" ng-change="updateUser()" ng-options="user.name for user in users">
       <option value="">-- choose user --</option>
     </select>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-9">
     <h3>Información</h3>
 
     <div ng-show="selectedUser.name">
@@ -15,10 +15,9 @@
       </select>
 
       <div ng-show="selectedProject.name">
-        <p>Selected:{{selectedProject}}</p>
+        <canvas tc-chartjs-radar chart-options="chart.config" chart-data="chart.data" auto-legend></canvas>
       </div>
     </div>
   </div>
-  <!--canvas tc-chartjs-doughnut chart-data="myData" chart-options="myOptions" width="350" height="350"></canvas-->
 </div>
 

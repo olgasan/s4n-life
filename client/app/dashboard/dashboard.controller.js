@@ -21,12 +21,30 @@ angular.module('s4nLifeApp')
       stats.getByProject($scope.selectedProject.name).then(function (data) {
         $scope.selectedProject.stats = data;
         $scope.chart.data = {
-          labels: stats.chart.getLabels(data),
-          datasets: stats.chart.getValues(data)
-        }
+          labels: stats.chart.getLabels($scope.selectedProject.stats[0]),
+          datasets: addValues()
+        };
       });
     };
 
+    function addValues(){
+      var datasets = stats.chart.getValues($scope.selectedProject.stats[0]);
+      angular.forEach(datasets, function (dataset){
+        dataset.fillColor = 'rgba(220,220,220,0.2)';
+        dataset.strokeColor = 'rgba(220,220,220,1)';
+        dataset.pointColor = 'rgba(220,220,220,1)';
+        dataset.pointStrokeColor = '#fff';
+        dataset.pointHighlightFill = '#fff';
+        dataset.pointHighlightStroke = 'rgba(220,220,220,1)';
+      });
+      return datasets;
+    }
+
+    function cleanChartData() {
+      return {datasets: [{data: []}], labels: []};
+    }
+
+    $scope.chart.data = cleanChartData();
     $scope.chart.config = {
       responsive: true,
       scaleShowLine: true,
