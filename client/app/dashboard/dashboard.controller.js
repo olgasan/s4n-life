@@ -19,7 +19,37 @@ angular.module('s4nLifeApp')
     $scope.updateStats = function () {
       stats.getByProject($scope.selectedProject.name).then(function (data) {
         $scope.selectedProject.stats = data;
+        if (angular.isDefined($scope.selectedProject.name)) {
+          setChartData ();
+          console.log($scope.chartObject);
+        }
       })
     };
 
+    function setChartData () {
+
+      $scope.chartObject = {
+        type: "BarChart",
+        displayed: true,
+        data: stats.getChartData($scope.selectedProject.stats),
+        options: {
+          title: "Values per project",
+          isStacked: "true",
+          fill: 20,
+          displayExactValues: true,
+          vAxis: {
+            title: "Reviewers",
+            gridlines: {
+              count: 5
+            }
+          },
+          hAxis: {
+            title: "Reviews"
+          }
+        },
+        formatters: {}
+      };
+    }
+
+    $scope.cssStyle = "height:200px; width:300px;";
   });

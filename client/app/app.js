@@ -5,7 +5,8 @@ angular.module('s4nLifeApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'googlechart'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

@@ -55,4 +55,12 @@ describe('Service: stats', function () {
     expect(projectStats.length).toBe(1);
   });
 
+  it("format stats data for chart standard", function () {
+    expect(stats.getChartData).toBeDefined();
+    var chartData = stats.getChartData(response);
+    expect(chartData).toBeDefined();
+    expect(angular.isArray(chartData.cols)).toBeTruthy();
+    expect(angular.isArray(chartData.rows)).toBeTruthy();
+  });
+
 });
