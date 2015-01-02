@@ -20,6 +20,7 @@ module.exports = function(config) {
       'client/bower_components/angular-route/angular-route.js',
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/lodash/dist/lodash.compat.js',
+      'client/bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js',
       'client/app/app.js',
       'client/app/**/*.js',
       'client/app/**/*.coffee',

@@ -5,7 +5,10 @@ angular.module('s4nLifeApp')
     var request;
 
     return {
-      getByProject: getByProject
+      getByProject: getByProject,
+      chart: {
+        getLabels: getLabels
+      }
     };
 
     function filterByProject(allStats, projectToSearch) {
@@ -29,5 +32,21 @@ angular.module('s4nLifeApp')
       return (request.then(function handleSuccess(response) {
         return filterByProject(response, name);
       }));
+    }
+
+    function getLabels(stats) {
+      var labels = [];
+      var added = [];
+      angular.forEach(stats.data, function (data) {
+        var i = 1;
+        angular.forEach(data.stats, function (v) {
+          if (added.indexOf(i) < 0) {
+            labels.push("q" + i);
+            added.push(i);
+            i++;
+          }
+        });
+      });
+      return labels;
     }
   });
