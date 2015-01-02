@@ -7,7 +7,8 @@ angular.module('s4nLifeApp')
     return {
       getByProject: getByProject,
       chart: {
-        getLabels: getLabels
+        getLabels: getLabels,
+        getValues: getValues
       }
     };
 
@@ -34,12 +35,12 @@ angular.module('s4nLifeApp')
       }));
     }
 
-    function getLabels(stats) {
+    function getLabels(projectStats) {
       var labels = [];
       var added = [];
-      angular.forEach(stats.data, function (data) {
+      angular.forEach(projectStats.data, function (data) {
         var i = 1;
-        angular.forEach(data.stats, function (v) {
+        angular.forEach(data.stats, function () {
           if (added.indexOf(i) < 0) {
             labels.push("q" + i);
             added.push(i);
@@ -47,6 +48,20 @@ angular.module('s4nLifeApp')
           }
         });
       });
+
       return labels;
+    }
+
+    function getValues(projectStats) {
+      var datasets = [];
+      angular.forEach(projectStats.data, function (data) {
+        datasets.push(
+          {
+            label: data.reviewer,
+            data: data.stats
+          }
+        );
+      });
+      return datasets;
     }
   });
