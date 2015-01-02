@@ -12,6 +12,11 @@ angular.module('s4nLifeApp')
       $scope.updateUser();
     };
 
+    $scope.selectProject = function (project){
+      $scope.selectedProject = project;
+      $scope.updateStats();
+    };
+
     $scope.updateUser = function () {
       project.getByUser($scope.selectedUser.name).then(function (data) {
         $scope.selectedUser.projects = data;

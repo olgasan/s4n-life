@@ -1,5 +1,8 @@
-<div class="col-md-12">
-  <div class="col-md-3">
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+  <div>
     <h3>Usuarios</h3>
 
     <div class="dropdown">
@@ -13,17 +16,28 @@
       </ul>
     </div>
 
-  </div>
-  <div class="col-md-9">
-    <h3>Información</h3>
-
     <div ng-show="selectedUser.name">
-      <select ng-model="selectedProject" ng-change="updateStats()"
-              ng-options="project.name for project in selectedUser.projects">
-        <option value="">-- choose project --</option>
-      </select>
+      <div class="dropdown">
+        <a class="dropdown-toggle btn btn-default">
+          Select a project
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="project in selectedUser.projects">
+            <a ng-click="selectProject(project)">{{project.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      <div ng-show="selectedProject.name">
+  </div>
+  <div class="panel panel-info" ng-show="selectedProject.name">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{selectedUser.name}}</h3>
+    </div>
+    <div class="panel-body">
+      <p><b>Project: </b>{{selectedProject.name}}</p>
+
+      <div class="well">
         <canvas tc-chartjs-radar chart-options="chart.config" chart-data="chart.data" auto-legend></canvas>
       </div>
     </div>
