@@ -1,9 +1,18 @@
 <div class="col-md-12">
   <div class="col-md-3">
     <h3>Usuarios</h3>
-    <select ng-model="selectedUser" ng-change="updateUser()" ng-options="user.name for user in users">
-      <option value="">-- choose user --</option>
-    </select>
+
+    <div class="dropdown">
+      <a class="dropdown-toggle btn btn-primary">
+        Select a developer
+      </a>
+      <ul class="dropdown-menu">
+        <li ng-repeat="user in users">
+          <a ng-click="selectUser(user)">{{user.name}}</a>
+        </li>
+      </ul>
+    </div>
+
   </div>
   <div class="col-md-9">
     <h3>Información</h3>

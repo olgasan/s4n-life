@@ -7,6 +7,11 @@ angular.module('s4nLifeApp')
     $scope.selectedProject = {};
     $scope.chart = {};
 
+    $scope.selectUser = function (user){
+      $scope.selectedUser = user;
+      $scope.updateUser();
+    };
+
     $scope.updateUser = function () {
       project.getByUser($scope.selectedUser.name).then(function (data) {
         $scope.selectedUser.projects = data;
