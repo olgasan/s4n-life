@@ -4,26 +4,29 @@ describe('Controller: DashboardCtrl', function () {
 
   var mockUser = {};
   var mockProject = {};
+  var mockStats = {};
   var DashboardCtrl,
-      scope,
-      user,
-      project;
+    scope,
+    user,
+    project,
+    stats;
 
   // load the controller's module
   beforeEach(module('s4nLifeApp', function ($provide) {
     $provide.value('user', mockUser);
     $provide.value('project', mockProject);
+    $provide.value('stats', mockStats);
   }));
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, $q, _user_, _project_) {
+  beforeEach(inject(function ($controller, $rootScope, $q, _user_, _project_, _stats_) {
     mockUser.data = [
       {name: 'fulano'},
       {name: 'sutano'},
       {name: 'mengano'}
     ];
 
-    mockUser.getAll = function (){
+    mockUser.getAll = function () {
       var defer = $q.defer();
       defer.resolve(this.data);
       return defer.promise;
@@ -36,7 +39,26 @@ describe('Controller: DashboardCtrl', function () {
       }
     ];
 
-    mockProject.getByUser = function (name){
+    mockProject.getByUser = function (name) {
+      var defer = $q.defer();
+      defer.resolve(this.data);
+      return defer.promise;
+    };
+
+    mockStats.data = [
+      {
+        project: 'p1',
+        data: [
+          {
+            reviewed: 'fulanito',
+            reviewer: 'sutanito',
+            stats: [2, 4, 4]
+          }
+        ]
+      }
+    ];
+
+    mockStats.getByProject = function (name) {
       var defer = $q.defer();
       defer.resolve(this.data);
       return defer.promise;
@@ -45,6 +67,7 @@ describe('Controller: DashboardCtrl', function () {
     scope = $rootScope.$new();
     user = _user_;
     project = _project_;
+    stats = _stats_;
     DashboardCtrl = $controller('DashboardCtrl', {
       $scope: scope,
       user: user,
@@ -53,12 +76,12 @@ describe('Controller: DashboardCtrl', function () {
     scope.$digest();
   }));
 
-  it('scope should have users', function () {
+  it("scope should have users", function () {
     expect(scope.users).toBeDefined();
     expect(angular.isArray(scope.users)).toBeTruthy();
   });
 
-  it('should attach a list of users to the scope', function () {
+  it("should attach a list of users to the scope", function () {
     expect(scope.users.length).toBe(3);
   });
 
@@ -69,9 +92,16 @@ describe('Controller: DashboardCtrl', function () {
 
   it("obtains project data when user is selected", function () {
     scope.selectedUser = mockUser.data[0];
-    scope.update ();
+    scope.updateUser();
     scope.$digest();
     expect(scope.selectedUser.projects).toBeDefined();
     expect(scope.selectedUser.projects).toBe(mockProject.data);
+  });
+
+  it("obtains user stats for selected project", function () {
+    expect(scope.selectedProject).toBeDefined();
+    scope.updateStats();
+    scope.$digest();
+    expect(scope.selectedProject.stats).toBeDefined();
   });
 });

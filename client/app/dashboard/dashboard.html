@@ -1,13 +1,23 @@
 <div class="col-md-5">
   <div class="col-md-8">
     <h3>Usuarios</h3>
-    <select ng-model="selectedUser" ng-change="update()" ng-options="user.name for user in users">
+    <select ng-model="selectedUser" ng-change="updateUser()" ng-options="user.name for user in users">
       <option value="">-- choose user --</option>
     </select>
   </div>
   <div class="col-md-4">
     <h3>Información</h3>
-    <p>Selected:{{selectedUser}}</p>
+
+    <div ng-show="selectedUser.name">
+      <select ng-model="selectedProject" ng-change="updateStats()"
+              ng-options="project.name for project in selectedUser.projects">
+        <option value="">-- choose project --</option>
+      </select>
+
+      <div ng-show="selectedProject.name">
+        <p>Selected:{{selectedProject}}</p>
+      </div>
+    </div>
   </div>
 </div>
 
