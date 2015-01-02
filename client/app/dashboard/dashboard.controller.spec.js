@@ -103,6 +103,7 @@ describe('Controller: DashboardCtrl', function () {
   });
 
   it("obtains user stats for selected project", function () {
+    scope.selectedProject = mockProject.data[0];
     expect(scope.selectedProject).toBeDefined();
     scope.updateStats();
     scope.$digest();
@@ -142,5 +143,13 @@ describe('Controller: DashboardCtrl', function () {
     expect(scope.chart.data.datasets).toBeDefined();
   });
 
-
+  it("clean chart data when there is no data to show", function () {
+    scope.selectedProject = undefined;
+    scope.updateStats();
+    scope.$digest();
+    expect(scope.chart.data).toBeDefined();
+    expect(scope.chart.data.labels.length).toBe(0);
+    expect(scope.chart.data.datasets.length).toBe(1);
+    expect(scope.chart.data.datasets[0].data.length).toBe(0);
+  });
 });
