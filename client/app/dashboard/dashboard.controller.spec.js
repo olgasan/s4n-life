@@ -21,9 +21,9 @@ describe('Controller: DashboardCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, $q, _user_, _project_, _stats_) {
     mockUser.data = [
-      {name: 'fulano'},
-      {name: 'sutano'},
-      {name: 'mengano'}
+      {name: 'fulanito'},
+      {name: 'sutanito'},
+      {name: 'merengano'}
     ];
 
     mockUser.getAll = function () {
@@ -35,7 +35,7 @@ describe('Controller: DashboardCtrl', function () {
     mockProject.data = [
       {
         name: 'p1',
-        developers: ['sutanito', 'merengano']
+        developers: ['fulanito','sutanito', 'merengano']
       }
     ];
 
@@ -103,11 +103,12 @@ describe('Controller: DashboardCtrl', function () {
   });
 
   it("obtains user stats for selected project", function () {
+    scope.selectedUser = mockUser.data[0];
     scope.selectedProject = mockProject.data[0];
     expect(scope.selectedProject).toBeDefined();
     scope.updateStats();
     scope.$digest();
-    expect(scope.selectedProject.stats).toBeDefined();
+    expect(scope.selectedProject.stats.length).toBe(1);
   });
 
   it("initialize options for chart", function () {
@@ -151,5 +152,13 @@ describe('Controller: DashboardCtrl', function () {
     expect(scope.chart.data.labels.length).toBe(0);
     expect(scope.chart.data.datasets.length).toBe(1);
     expect(scope.chart.data.datasets[0].data.length).toBe(0);
+  });
+
+  it("filter stats by reviewed developer", function () {
+    scope.selectedUser = mockUser.data[1];
+    scope.selectedProject = mockProject.data[0];
+    scope.updateStats();
+    scope.$digest();
+    expect(scope.selectedProject.stats.length).toBe(0);
   });
 });

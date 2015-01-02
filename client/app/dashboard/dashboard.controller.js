@@ -20,7 +20,7 @@ angular.module('s4nLifeApp')
     $scope.updateStats = function () {
       if (angular.isDefined($scope.selectedProject)) {
         stats.getByProject($scope.selectedProject.name).then(function (data) {
-          $scope.selectedProject.stats = data;
+          $scope.selectedProject.stats = filterByReviewed(data);
           if ($scope.selectedProject.stats.length > 0) {
             $scope.chart.data = {
               labels: stats.chart.getLabels($scope.selectedProject.stats[0]),
@@ -32,6 +32,15 @@ angular.module('s4nLifeApp')
       }
       $scope.chart.data = cleanChartData();
     };
+
+    function filterByReviewed(data) {
+      if ((data.length > 0) && (data[0].data[0].reviewed == $scope.selectedUser.name)) {
+        return data;
+      }
+      else {
+        return [];
+      }
+    }
 
     function addValues() {
       var datasets = stats.chart.getValues($scope.selectedProject.stats[0]);
